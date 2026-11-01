@@ -121,8 +121,8 @@ export async function crawl(input, { fetchImpl = fetch, sleep = defaultSleep, on
             responseMs: result.responseMs ?? null,
             isExternal,
             depth: item.depth,
-            foundOn: foundOn.get(item.url)?.map((f) => f.page) ?? [],
-            anchorText: firstRef?.text || null,
+            foundOn: (foundOn.get(item.url) ?? []).map((f) => f.page).filter(Boolean),
+            anchorText: firstRef?.page ? firstRef.text || null : null,
             error: result.error ?? null,
             ...(page ?? {}),
         };

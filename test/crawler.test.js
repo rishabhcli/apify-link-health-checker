@@ -70,6 +70,13 @@ test('crawl finds broken, redirected, restricted-by-robots, timeout and picky-HE
     assert.equal(summary.pagesCrawled, 2 + 1, 'home, about and moved are opened');
 });
 
+test('start URL rows have string-only foundOn so they pass dataset schema validation', async () => {
+    const { byUrl, rows } = await run(SITE, { startUrls: ['https://site.test/'], useSitemap: false });
+    assert.deepEqual(byUrl['https://site.test/'].foundOn, []);
+    assert.equal(byUrl['https://site.test/'].anchorText, null);
+    for (const r of rows) assert.ok(r.foundOn.every((x) => typeof x === 'string'));
+});
+
 test('each URL is checked once even when many pages link to it', async () => {
     const log = [];
     await run(SITE, { startUrls: ['https://site.test/'], useSitemap: false }, log);
