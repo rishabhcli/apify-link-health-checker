@@ -1,0 +1,20 @@
+{
+    "actorSpecification": 1,
+    "name": "link-health-checker",
+    "title": "Broken Link Checker and Site Health Crawler (robots.txt aware)",
+    "description": "Crawls your site politely and reports broken internal and external links, redirects, timeouts and basic on-page problems such as missing title, meta description or H1.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "dockerfile": "../Dockerfile",
+    "readme": "../README.md",
+    "input": "./input_schema.json",
+    "storages": {
+        "dataset": "./dataset_schema.json"
+    },
+    "minMemoryMbytes": 256,
+    "maxMemoryMbytes": 1024,
+    "environmentVariables": {},
+    "meta": {
+        "templateId": "project_empty"
+    }
+}

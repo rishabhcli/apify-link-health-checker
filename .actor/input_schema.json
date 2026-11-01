@@ -1,0 +1,81 @@
+{
+    "title": "Link Health Checker input",
+    "type": "object",
+    "schemaVersion": 1,
+    "description": "Give it one or more start URLs. It crawls pages on the same site, checks every link it finds, and saves one row per unique URL. robots.txt is always respected.",
+    "properties": {
+        "startUrls": {
+            "title": "Start URLs",
+            "type": "array",
+            "description": "Pages to start from, for example https://example.com/. Only sites you own or are allowed to audit. Up to 20.",
+            "editor": "stringList",
+            "prefill": ["https://example.com/"]
+        },
+        "maxPages": {
+            "title": "Maximum pages to crawl",
+            "type": "integer",
+            "description": "How many pages on your own site are opened and parsed for links.",
+            "default": 50,
+            "minimum": 1,
+            "maximum": 1000
+        },
+        "maxDepth": {
+            "title": "Maximum click depth",
+            "type": "integer",
+            "description": "0 = only the start URLs. Pages deeper than this are still checked for status but not opened.",
+            "default": 3,
+            "minimum": 0,
+            "maximum": 10
+        },
+        "maxLinks": {
+            "title": "Maximum rows saved",
+            "type": "integer",
+            "description": "Hard cap on dataset rows and therefore on cost: each saved row is one billable event.",
+            "default": 200,
+            "minimum": 1,
+            "maximum": 5000
+        },
+        "checkExternal": {
+            "title": "Check external links",
+            "type": "boolean",
+            "description": "Also check links that point to other websites (one request each, never crawled).",
+            "default": true
+        },
+        "useSitemap": {
+            "title": "Seed from sitemap",
+            "type": "boolean",
+            "description": "Add URLs from the site's sitemap (found via robots.txt or /sitemap.xml) so pages not linked from the start page are covered too.",
+            "default": true
+        },
+        "onlyProblems": {
+            "title": "Save only rows with problems",
+            "type": "boolean",
+            "description": "Skip rows that have no issues. You are billed only for rows that are saved.",
+            "default": false
+        },
+        "concurrency": {
+            "title": "Parallel requests",
+            "type": "integer",
+            "description": "Total in-flight requests. Requests to the same host are additionally spaced by the delay below.",
+            "default": 5,
+            "minimum": 1,
+            "maximum": 10
+        },
+        "delayMs": {
+            "title": "Delay between requests to one host (ms)",
+            "type": "integer",
+            "description": "Minimum gap between two requests to the same host. Raise it for small or slow sites.",
+            "default": 250,
+            "minimum": 0,
+            "maximum": 10000
+        },
+        "timeoutSecs": {
+            "title": "Request timeout (seconds)",
+            "type": "integer",
+            "default": 15,
+            "minimum": 3,
+            "maximum": 60
+        }
+    },
+    "required": ["startUrls"]
+}

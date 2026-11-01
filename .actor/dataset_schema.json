@@ -1,0 +1,48 @@
+{
+    "actorSpecification": 1,
+    "fields": {
+        "type": "object",
+        "properties": {
+            "type": { "type": "string", "enum": ["page", "link"], "description": "page = an internal HTML page that was opened; link = anything checked by status only." },
+            "url": { "type": "string" },
+            "finalUrl": { "type": ["string", "null"], "description": "Where the URL ended up after redirects, when different." },
+            "status": { "type": ["integer", "null"], "description": "HTTP status, null when no response or blocked by robots.txt." },
+            "category": { "type": "string", "enum": ["ok", "redirected", "broken", "restricted", "timeout", "error", "robots-disallowed"] },
+            "ok": { "type": "boolean" },
+            "redirected": { "type": "boolean" },
+            "responseMs": { "type": ["integer", "null"] },
+            "isExternal": { "type": "boolean" },
+            "depth": { "type": "integer" },
+            "foundOn": { "type": "array", "items": { "type": "string" }, "description": "Up to 3 pages that link here." },
+            "anchorText": { "type": ["string", "null"] },
+            "error": { "type": ["string", "null"] },
+            "title": { "type": ["string", "null"] },
+            "metaDescription": { "type": ["string", "null"] },
+            "h1Count": { "type": "integer" },
+            "canonicalUrl": { "type": ["string", "null"] },
+            "noindex": { "type": "boolean" },
+            "lang": { "type": ["string", "null"] },
+            "issues": { "type": "array", "items": { "type": "string" }, "description": "broken-link, timeout, request-error, redirected, slow, missing-title, missing-meta-description, missing-h1, multiple-h1, noindex" }
+        }
+    },
+    "views": {
+        "problems": {
+            "title": "Overview",
+            "transformation": { "fields": ["url", "status", "category", "issues", "foundOn", "anchorText", "responseMs", "type", "isExternal"] },
+            "display": {
+                "component": "table",
+                "properties": {
+                    "url": { "label": "URL", "format": "link" },
+                    "status": { "label": "Status", "format": "number" },
+                    "category": { "label": "Result", "format": "text" },
+                    "issues": { "label": "Issues", "format": "array" },
+                    "foundOn": { "label": "Found on", "format": "array" },
+                    "anchorText": { "label": "Link text", "format": "text" },
+                    "responseMs": { "label": "ms", "format": "number" },
+                    "type": { "label": "Type", "format": "text" },
+                    "isExternal": { "label": "External", "format": "boolean" }
+                }
+            }
+        }
+    }
+}
