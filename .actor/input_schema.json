@@ -9,7 +9,9 @@
             "type": "array",
             "description": "Pages to start from, for example https://example.com/. Only sites you own or are allowed to audit. Up to 20.",
             "editor": "stringList",
-            "prefill": ["https://example.com/"]
+            "prefill": [
+                "https://example.com/"
+            ]
         },
         "maxPages": {
             "title": "Maximum pages to crawl",
@@ -74,8 +76,11 @@
             "type": "integer",
             "default": 15,
             "minimum": 3,
-            "maximum": 60
+            "maximum": 60,
+            "description": "How long to wait for one URL before it is reported as a timeout."
         }
     },
-    "required": ["startUrls"]
+    "required": [
+        "startUrls"
+    ]
 }
